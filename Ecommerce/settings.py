@@ -37,6 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'account',
+    'rest_framework_simplejwt.token_blacklist',
+]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+AUTHENTICATION_BACKENDS = [
+    'account.backends.EmailBackend',  # Adjust the path accordingly
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
