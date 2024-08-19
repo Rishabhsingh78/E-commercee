@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'account',
     'rest_framework_simplejwt.token_blacklist',
-    'product'
+    'product',
+    'cart',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
