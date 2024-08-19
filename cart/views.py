@@ -62,3 +62,11 @@ def update_cart(request, item_id):
         return Response(CartItemSerializer(cart_item).data)
     except Cart_Items.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
+
+
+@api_view(['GET'])
+def view_cart(request):
+    cart = Cart.objects.all()
+    serializer = CartSerializer(cart,many = True)
+    return Response({"Payload": serializer.data},status=status.HTTP_200_OK)
