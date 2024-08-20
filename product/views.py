@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
+from django.db.models import Q
 
 @api_view(['POST'])
 def add_product(request):
@@ -33,3 +34,14 @@ def edit_product(request,pk):
         serializer.save()
         return Response(serializer.data,status=status.HTTP_200_OK)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])  # this is for the searching the product
+def product_search(request):
+    query = request.GET.get('q', '')
+    if not query :
+        return Response({"error": "Search query is required."}, status=400)
+    
+    product = Product.objects.filter(name__icontains=query)
+    serializers = ProductSerializer(product,many = True)
+    return Response({'message':serializers.data},status=status.HTTP_200_OK)
